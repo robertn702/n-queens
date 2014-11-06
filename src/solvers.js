@@ -11,28 +11,43 @@
 // take a look at solversSpec.js to see what the tests are expecting
 
 
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
+// return a matrix (an array of arrays) representing a single nxn chessboard,
+//  n rooks placed such that none of them can attack each other
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
-
+  var solution = new Board({n:n});
+  for (var i = 0; i < n; i++){
+    solution.togglePiece(i, i);
+  }
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  return solution.rows();
 };
 
 
 
-// return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
+// return the number of nxn chessboards that exist, with n rooks placed
+// such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
-
+  var f = [];
+  function factorial(d) {
+    if (d === 0 || d === 1) {
+      return 1;
+    }
+    if (f[d] > 0) {
+      return f[d];
+    }
+    return f[d] = factorial(d-1) * d;
+  }
+  // var solutionCount = 1; //fixme
+  var solutionCount = factorial(n);
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
 
 
 
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
+// return a matrix (an array of arrays) representing a single nxn chessboard,
+// with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
   var solution = undefined; //fixme
 
@@ -41,7 +56,8 @@ window.findNQueensSolution = function(n) {
 };
 
 
-// return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
+// return the number of nxn chessboards that exist, with n queens placed such
+// that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   var solutionCount = undefined; //fixme
 
