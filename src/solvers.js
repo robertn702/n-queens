@@ -30,15 +30,10 @@ window.findNRooksSolution = function(n) {
 window.countNRooksSolutions = function(n) {
   var f = [];
   function factorial(d) {
-    if (d === 0 || d === 1) {
-      return 1;
-    }
-    if (f[d] > 0) {
-      return f[d];
-    }
-    return f[d] = factorial(d-1) * d;
+    if (d === 0 || d === 1) { return 1; }
+    if (f[d] > 0) { return f[d]; }
+    return f[d] = factorial(d - 1) * d;
   }
-  // var solutionCount = 1; //fixme
   var solutionCount = factorial(n);
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -50,29 +45,24 @@ window.countNRooksSolutions = function(n) {
 // with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
   var solution = new Board({n:n});
-  if (n === 0) {
-    return solution.rows();
-  }
+  if (n === 0) { return solution.rows(); }
 
   var solutionFinder = function(iRow){
-    // iRow = iRow || 0;
+    iRow = iRow || 0;
     for (var iCol = 0; iCol < n; iCol++){
       solution.togglePiece(iRow, iCol);
       if (!solution.hasAnyQueenConflictsOn(iRow, iCol)) {
-        if (iRow === n - 1) {
-          return true;
-        }
+        if (iRow === n - 1) { return true; }
 
-        if (solutionFinder(iRow + 1)){
+        if (solutionFinder(iRow + 1)) {
           return true;
         }
       }
       solution.togglePiece(iRow, iCol);
     }
-
     return false;
   };
-  solutionFinder(0);
+  solutionFinder();
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution.rows();
 };
@@ -84,9 +74,7 @@ window.countNQueensSolutions = function(n) {
   var solution = new Board({n:n});
   var solutionCount = 0;
 
-  if (n === 0) {
-    return 1;
-  }
+  if (n === 0) { return 1; }
 
   var solutionFinder = function(iRow){
     iRow = iRow || 0;
@@ -104,6 +92,5 @@ window.countNQueensSolutions = function(n) {
   };
   solutionFinder();
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-
   return solutionCount;
 };
